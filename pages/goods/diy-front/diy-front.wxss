@@ -1,0 +1,17 @@
+/* pages/goods/diy-front/diy-front.wxss */
+.psd-box{
+  height: 170px;
+  line-height: 170px;
+  background-color:#f5f5f5;
+  white-space: nowrap;
+}
+.psd-item{
+  display: inline-block;
+  width: 300rpx;
+  padding: 10rpx;
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+.psd-item wx-image{
+  width: 100%;
+}

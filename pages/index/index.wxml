@@ -1,0 +1,3 @@
+<view class="flex flex-center flex-align-center" style="height:100vh;">
+  <navigator class='fz-32 c3' url='/pages/goods/diy-front/diy-front'>DIY定制</navigator>
+</view>

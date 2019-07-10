@@ -1,0 +1,6 @@
+<!--pages/authorization/authorization.wxml-->
+<view class='flex flex-column flex-center flex-align-center' style='height:100vh;'>
+  <view class="fz-32 c3 mb-20">用户未授权</view>
+  <view class="fz-28 c3 mb-20">您需要先允许【用户授权】，才能进行后续操作哦~</view>
+  <van-button type="primary" open-type="getUserInfo" bind:getuserinfo="userinfo">主要按钮</van-button>
+</view>

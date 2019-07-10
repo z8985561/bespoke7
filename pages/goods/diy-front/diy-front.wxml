@@ -1,0 +1,119 @@
+<canvas canvas-id="canvas" style="width: {{screenWidth}}px; height: {{screenWidth}}px;" disable-scroll="true" bindtouchstart="start" bindtouchmove="move" bindtouchend="end"></canvas>
+
+<view class='bottom-bar {{isIpx ? "isIpx":""}}'>
+  <van-row>
+    <van-col span="4">
+      <view class='text-center' bindtap='addLocalImg'>
+        <van-icon name="photo-o" />
+        <view class='fz-28 c3'>照片</view>
+      </view>
+    </van-col>
+    <van-col span="4">
+      <view class='text-center' bindtap='showPsdBox' data-type="show">
+        <van-icon name="photo-o" />
+        <view class='fz-28 c3'>素材</view>
+      </view>
+    </van-col>
+    <van-col span="4">
+      <view class='text-center'>
+        <van-icon name="photo-o" />
+        <view class='fz-28 c3'>文字</view>
+      </view>
+    </van-col>
+    <van-col span="4">
+      <view class='text-center' bindtap='showStyleBox' data-type="show">
+        <van-icon name="photo-o" />
+        <view class='fz-28 c3'>款式</view>
+      </view>
+    </van-col>
+    <van-col span="8">
+      <van-button type="danger" size="large">下一步</van-button>
+    </van-col>
+  </van-row>
+</view>
+
+<!-- 素材选择弹出窗 -->
+<van-popup show="{{ isShowPsdBox }}" position="bottom" overlay="{{ isShowPsdBox }}" bind:close="showPsdBox">
+  <van-tabs active="0">
+    <block wx:for="{{psd}}" wx:key="index">
+      <van-tab title="{{item.name}}">
+        <scroll-view class='psd-box' scroll-x>
+          <block wx:for="{{item.imgArr}}" wx:key="idx">
+            <view class='psd-item'>
+              <image src='{{item}}' mode='widthFix' lazy-load="true" data-img="{{item}}" bindtap='addPsdImg'></image>
+            </view>
+          </block>
+        </scroll-view>
+      </van-tab>
+    </block>
+  </van-tabs>
+  <view class='flex flex-jus p-20'>
+    <van-icon name="cross" bind:click="showPsdBox" />
+    <van-icon name="success" bind:click="showPsdBox" />
+  </view>
+</van-popup>
+
+<!-- 图层操作弹出窗 -->
+<van-popup show="{{ currentGraph.selected }}" position="bottom" overlay="{{ false }}" bind:close="onClose">
+  <view class='flex flex-jus flex-align-center p-20'>
+    <view class='flex flex-align-center'>
+      <image src='{{currentGraph.fileUrl}}' style='width:60rpx;height:60rpx;' mode='aspectFill'></image>
+      <view class='fz-28 c0 ml-20'>图层 {{itemIndex+1}} / {{drawArr.length}}</view>
+    </view>
+    <van-icon size='28' name="success" bind:click="confirmEdit" />
+  </view>
+  <van-row>
+    <van-col span="4">
+      <view class='text-center' bindtap='moveLevel' data-type="up">
+        <van-icon name="arrow-up" />
+        <view class='fz-28 c3'>上1层</view>
+      </view>
+    </van-col>
+    <van-col span="4">
+      <view class='text-center' bindtap='moveLevel' data-type="down">
+        <van-icon name="arrow-down" />
+        <view class='fz-28 c3'>下1层</view>
+      </view>
+    </van-col>
+    <van-col span="4">
+      <view class='text-center' bindtap="rotateEvent">
+        <van-icon name="replay" />
+        <view class='fz-28 c3'>旋转</view>
+      </view>
+    </van-col>
+    <van-col span="4">
+      <view class='text-center' bindtap="rotateEvent" data-type="normal">
+        <van-icon name="coupon-o" />
+        <view class='fz-28 c3'>平正</view>
+      </view>
+    </van-col>
+    <van-col span="4">
+      <view class='text-center' bindtap='centerEvent'>
+        <van-icon name="warning-o" />
+        <view class='fz-28 c3'>居中</view>
+      </view>
+    </van-col>
+    <van-col span="4">
+      <view class='text-center' bindtap='deleteEvent'>
+        <van-icon name="edit" />
+        <view class='fz-28 c3'>删除</view>
+      </view>
+    </van-col>
+  </van-row>
+</van-popup>
+
+
+<!-- 款式选择弹出窗 -->
+<van-popup show="{{ isShowStyleBox }}" position="bottom" overlay="{{ false }}">
+  <scroll-view class='psd-box' scroll-x>
+    <block wx:for="{{goods.style}}" wx:key="index">
+      <view class='psd-item'>
+        <image src='{{item.previewBg}}' mode='widthFix' lazy-load="true" data-index="{{index}}" bindtap='chooseStyle'></image>
+      </view>
+    </block>
+  </scroll-view>
+  <view class='flex flex-jus p-20'>
+    <van-icon name="cross" bind:click="showStyleBox" />
+    <van-icon name="success" bind:click="showStyleBox" />
+  </view>
+</van-popup>
