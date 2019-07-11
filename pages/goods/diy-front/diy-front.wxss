@@ -15,3 +15,10 @@
 .psd-item wx-image{
   width: 100%;
 }
+
+.color-item{
+  margin: 20rpx auto;
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+}

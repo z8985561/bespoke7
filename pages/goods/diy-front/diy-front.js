@@ -71,7 +71,8 @@ Page({
       designBg: "http://frontend.guangzhoubaidu.com/A01/a13/a13_g20_layout_mask_design.png",
       specBg: "http://frontend.guangzhoubaidu.com/A01/a13/a13_g20_layout_mask_spec.png",
       previewBg: "http://frontend.guangzhoubaidu.com/A01/a13/a13_g20_preview.png",
-    }
+    },
+    colorArr: ["#5f3c23", "#2e3a1f", "#426ab3", "#d71345", "#8c531b", "#0c212b", "#412f1f", "#225a1f", "#594c6d", "#a7573b", "#508a88", "#7c8577", "#ffd400", "#6a3427", "#1d1626","#cbc547"]
   },
 
   /**
@@ -240,7 +241,8 @@ Page({
       };
     }
     this.setData({
-      isShowPsdBox:false
+      isShowPsdBox:false,
+      isShowStyleBox: false
     })
     this.data.tempGraphArr = [];
     let lastDelIndex = null; // 记录最后一个需要删除的索引

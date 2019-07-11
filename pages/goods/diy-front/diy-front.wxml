@@ -117,3 +117,21 @@
     <van-icon name="success" bind:click="showStyleBox" />
   </view>
 </van-popup>
+
+
+<!-- 款式选择弹出窗 -->
+<van-popup show="{{ isTextBox ? 1 : true }}" custom-style="box-shadow:0 0 4px rgba(0,0,0,0.1);" position="bottom" overlay="{{ false }}">
+  <view>
+    <view class='p-20 flex flex-jus'>
+      <input placeholder='输入文字' type='text'></input>
+      <van-icon name="success" bind:click="showStyleBox" />
+    </view>
+    <van-row>
+    <block wx:for="{{colorArr}}" wx:key="index">
+      <van-col span="3">
+        <view class='color-item' style='background-color:{{item}}' data-color="{{item}}"></view>
+      </van-col>
+    </block>
+    </van-row>
+  </view>
+</van-popup>
