@@ -1,4 +1,4 @@
-<canvas canvas-id="canvas" style="width: {{screenWidth}}px; height: {{screenWidth}}px;" disable-scroll="true" bindtouchstart="start" bindtouchmove="move" bindtouchend="end"></canvas>
+<canvas canvas-id="canvas" style="width: {{screenWidth}}px; height: {{screenWidth}}px;border-bottom:1px solid #000;" disable-scroll="true" bindtouchstart="start" bindtouchmove="move" bindtouchend="end"></canvas>
 
 <view class='bottom-bar {{isIpx ? "isIpx":""}}'>
   <van-row>
@@ -33,7 +33,7 @@
 </view>
 
 <!-- 素材选择弹出窗 -->
-<van-popup show="{{ isShowPsdBox }}" position="bottom" overlay="{{ isShowPsdBox }}" bind:close="showPsdBox">
+<van-popup show="{{ isShowPsdBox }}" position="bottom" overlay="{{ false }}" bind:close="showPsdBox">
   <van-tabs active="0">
     <block wx:for="{{psd}}" wx:key="index">
       <van-tab title="{{item.name}}">

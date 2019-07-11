@@ -168,6 +168,9 @@ Page({
       img
     } = e.currentTarget.dataset;
     new Promise((resolve, rejreject) => {
+      wx.showLoading({
+        title: '图片加载中',
+      })
         wx.getImageInfo({
           src: img,
           success(res) {
@@ -192,6 +195,7 @@ Page({
           drawArr: this.data.drawArr
         })
       }).then(() => {
+        wx.hideLoading()
         this.draw(this.data.tempGoodsItem.designBg);
       })
   },
@@ -205,7 +209,7 @@ Page({
       item.paint();
     });
     if (bgImage !== '') {
-      this.data.context.drawImage(bgImage, 0, 0, this.toPx(this.data.goods.designWidth), this.toPx(this.data.goods.designWidth));
+      this.data.context.drawImage(bgImage, 0, 0, this.data.screenWidth, this.data.screenWidth);
     } else {
       console.log("请选择一张背景！")
     }
@@ -235,6 +239,9 @@ Page({
         y2: e.touches[1].y,
       };
     }
+    this.setData({
+      isShowPsdBox:false
+    })
     this.data.tempGraphArr = [];
     let lastDelIndex = null; // 记录最后一个需要删除的索引
     this.data.drawArr && this.data.drawArr.forEach((item, index) => {
@@ -344,9 +351,13 @@ Page({
   },
   // 确认修改按钮
   confirmEdit() {
+    let drawArr = this.data.drawArr
+    drawArr[this.data.itemIndex].selected = false;
     this.setData({
-      ['currentGraph.selected']: false
+      ['currentGraph.selected']: false,
+      drawArr
     })
+    this.draw(this.data.tempGoodsItem.designBg);
   },
   // 移动图层层级
   moveLevel(e) {
@@ -438,25 +449,28 @@ Page({
     let {
       index
     } = e.currentTarget.dataset;
-    this.setData({
-      tempGoodsItem: this.data.goods.style[index]
+    this.setTempGoodsItem(index).then(() => {
+      this.draw(this.data.tempGoodsItem.designBg);
     })
-    this.draw(this.data.tempGoodsItem.designBg);
   },
   // 加载风格背景图
-  setTempGoodsItem(){
+  setTempGoodsItem(index){
     let style = this.data.goods.style;
     return new Promise((resolve,rejreject)=>{
+      wx.showLoading({
+        title: '图片加载中',
+      })
       wx.getImageInfo({
-        src: style[0].designBg,
+        src: style[index].designBg,
         success(res){
           resolve(res)
         }
       })
     }).then(res=>{
-      style[0].designBg = res.path;
+      wx.hideLoading();
+      style[index].designBg = res.path;
       this.setData({
-        tempGoodsItem: style[0]
+        tempGoodsItem: style[index]
       })
     })
   },
@@ -464,8 +478,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    this.setTempGoodsItem().then(()=>{
-      console.log(this.data.tempGoodsItem.designBg)
+    this.setTempGoodsItem(0).then(()=>{
       this.draw(this.data.tempGoodsItem.designBg);
     })
   },

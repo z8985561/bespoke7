@@ -1,13 +1,13 @@
 /* pages/goods/diy-front/diy-front.wxss */
 .psd-box{
-  height: 170px;
-  line-height: 170px;
+  height: 260rpx;
+  line-height: 260rpx;
   background-color:#f5f5f5;
   white-space: nowrap;
 }
 .psd-item{
   display: inline-block;
-  width: 300rpx;
+  width: 240rpx;
   padding: 10rpx;
   box-sizing: border-box;
   vertical-align: middle;

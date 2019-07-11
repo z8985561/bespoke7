@@ -61,18 +61,18 @@ class dragGraph {
    * 给矩形描边
    * @private
    */
-  _drawBorder() {
-    let p = this.square;
-    let ctx = this.ctx;
-    this.ctx.save();
-    this.ctx.beginPath();
-    ctx.setStrokeStyle('orange');
-    this._draw_line(this.ctx, p[0], p[1]);
-    this._draw_line(this.ctx, p[1], p[2]);
-    this._draw_line(this.ctx, p[2], p[3]);
-    this._draw_line(this.ctx, p[3], p[0]);
-    ctx.restore();
-  }
+  // _drawBorder() {
+  //   let p = this.square;
+  //   let ctx = this.ctx;
+  //   this.ctx.save();
+  //   this.ctx.beginPath();
+  //   ctx.setStrokeStyle('orange');
+  //   this._draw_line(this.ctx, p[0], p[1]);
+  //   this._draw_line(this.ctx, p[1], p[2]);
+  //   this._draw_line(this.ctx, p[2], p[3]);
+  //   this._draw_line(this.ctx, p[3], p[0]);
+  //   ctx.restore();
+  // }
   /**
    * 画一条线
    * @param ctx
@@ -80,11 +80,11 @@ class dragGraph {
    * @param b
    * @private
    */
-  _draw_line(ctx, a, b) {
-    ctx.moveTo(a[0], a[1]);
-    ctx.lineTo(b[0], b[1]);
-    ctx.stroke();
-  }
+  // _draw_line(ctx, a, b) {
+  //   ctx.moveTo(a[0], a[1]);
+  //   ctx.lineTo(b[0], b[1]);
+  //   ctx.stroke();
+  // }
   /**
    * 计算旋转后矩形四个顶点的坐标（相对于画布）
    * @private
@@ -188,7 +188,7 @@ class dragGraph {
     }
     // 如果是选中状态，绘制选择虚线框，和缩放图标、删除图标
     if (this.selected) {
-      this.ctx.setLineDash([2, 5]);
+      this.ctx.setLineDash([10, 10],2);
       this.ctx.setLineWidth(2);
       this.ctx.setStrokeStyle(STROKE_COLOR);
       this.ctx.lineDashOffset = 6;
