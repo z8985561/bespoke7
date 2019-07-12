@@ -15,7 +15,7 @@
       </view>
     </van-col>
     <van-col span="4">
-      <view class='text-center'>
+      <view class='text-center' bindtap='showTextBox' data-type="show">
         <van-icon name="photo-o" />
         <view class='fz-28 c3'>文字</view>
       </view>
@@ -120,16 +120,18 @@
 
 
 <!-- 款式选择弹出窗 -->
-<van-popup show="{{ isTextBox ? 1 : true }}" custom-style="box-shadow:0 0 4px rgba(0,0,0,0.1);" position="bottom" overlay="{{ false }}">
-  <view>
+<van-popup show="{{ isShowTextBox }}" custom-style="box-shadow:0 0 4px rgba(0,0,0,0.1);" position="bottom" overlay="{{ false }}">
+  <view style='background-color:#f7f7f7;'>
     <view class='p-20 flex flex-jus'>
-      <input placeholder='输入文字' type='text'></input>
-      <van-icon name="success" bind:click="showStyleBox" />
+      <input placeholder-class='c9' maxlength="10" placeholder='输入文字' type='text' style='flex:1;margin-right:40rpx;background-color:#fff;padding:0 10rpx;color:{{showColor}};'
+      bindinput='inputChangeText'
+      ></input>
+      <van-icon bind:click="onAddTest" name="success" />
     </view>
     <van-row>
     <block wx:for="{{colorArr}}" wx:key="index">
       <van-col span="3">
-        <view class='color-item' style='background-color:{{item}}' data-color="{{item}}"></view>
+        <view class='color-item' style='background-color:{{item}}' data-color="{{item}}" bindtap='chooseTextColor'></view>
       </van-col>
     </block>
     </van-row>

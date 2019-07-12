@@ -2,7 +2,7 @@
 import DragGraph from "./dragGraph.js";
 import PSD from "./psd.js";
 const app = getApp();
-
+const isEnglish = new RegExp("^[a-zA-Z]+$");
 Page({
 
   /**
@@ -60,7 +60,7 @@ Page({
           specBg: "http://frontend.guangzhoubaidu.com/A01/a13/a13_g24_layout_mask_spec.png",
           previewBg: "http://frontend.guangzhoubaidu.com/A01/a13/a13_g24_preview.png",
         }
-      ]
+      ],
     },
     isShowStyleBox: false,
     // 默认选择第一个款式
@@ -72,7 +72,15 @@ Page({
       specBg: "http://frontend.guangzhoubaidu.com/A01/a13/a13_g20_layout_mask_spec.png",
       previewBg: "http://frontend.guangzhoubaidu.com/A01/a13/a13_g20_preview.png",
     },
-    colorArr: ["#5f3c23", "#2e3a1f", "#426ab3", "#d71345", "#8c531b", "#0c212b", "#412f1f", "#225a1f", "#594c6d", "#a7573b", "#508a88", "#7c8577", "#ffd400", "#6a3427", "#1d1626","#cbc547"]
+    colorArr: ["#5f3c23", "#2e3a1f", "#426ab3", "#d71345", "#8c531b", "#0c212b", "#412f1f", "#225a1f", "#594c6d", "#a7573b", "#508a88", "#7c8577", "#ffd400", "#6a3427", "#1d1626","#cbc547"],
+    isShowTextBox:false,
+    textGraph: {
+      text: "hello",
+      type: "text",
+      color: "#000",
+      fontSize:30
+    },
+    showColor:"#000"
   },
 
   /**
@@ -199,6 +207,19 @@ Page({
         wx.hideLoading()
         this.draw(this.data.tempGoodsItem.designBg);
       })
+  },
+  onAddTest(){
+    this.data.drawArr.push(new DragGraph({
+      x: this.data.screenWidth/4,
+      y: this.data.screenWidth / 2,
+      selected: false,
+      ...this.data.textGraph
+    }, this.data.context, this.data.factor));
+    this.setData({
+      drawArr: this.data.drawArr,
+      isShowTextBox:false
+    })
+    this.draw(this.data.tempGoodsItem.designBg);
   },
   toPx(rpx) {
     return rpx * this.data.factor;
@@ -474,6 +495,36 @@ Page({
       this.setData({
         tempGoodsItem: style[index]
       })
+    })
+  },
+  // 显示文字添加编辑层
+  showTextBox(e){
+    let {type} = e.currentTarget.dataset;
+    if (type === "show"){
+      this.setData({
+        isShowTextBox:true,
+      })
+    }else{
+      this.setData({
+        isShowTextBox: false,
+      })
+    }
+  },
+  // 文字输入框事件
+  inputChangeText(e){
+    const textGraph = this.data.textGraph;
+    textGraph.text = e.detail.value;
+    this.setData({
+      textGraph
+    })
+  },
+  chooseTextColor(e){
+    const textGraph = this.data.textGraph;
+    this.showColor = textGraph.color = e.currentTarget.dataset.color;
+    
+    this.setData({
+      textGraph,
+      showColor: this.showColor
     })
   },
   /**
